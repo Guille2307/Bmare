@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { locations, navigation, services, type Locale, type Service } from "@/lib/content";
 
 const copy = {
@@ -93,6 +93,22 @@ function ServicePanel({ locale, service, onClose }: { locale: Locale; service: S
 export function HomePage({ locale }: { locale: Locale }) {
   const [active, setActive] = useState<Service | null>(null);
   const text = copy[locale];
+  useEffect(() => {
+    if (!active || !window.matchMedia("(max-width: 900px)").matches) return;
+    const root = document.documentElement;
+    const body = document.body;
+    const previousRootOverflow = root.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyTouchAction = body.style.touchAction;
+    root.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    body.style.touchAction = "none";
+    return () => {
+      root.style.overflow = previousRootOverflow;
+      body.style.overflow = previousBodyOverflow;
+      body.style.touchAction = previousBodyTouchAction;
+    };
+  }, [active]);
   const positions: Record<string, { x: string; y: string }> = {
     technical: { x: "34%", y: "9%" }, quality: { x: "66%", y: "9%" },
     sustainability: { x: "18%", y: "28%" }, operations: { x: "82%", y: "28%" },
@@ -132,6 +148,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </div>
         {!active && <div className="quote">{text.quote.map((line) => <span key={line}>{line}<br /></span>)}</div>}
+        {active && <button className="service-modal-backdrop" type="button" aria-label={copy[locale].close} onClick={() => setActive(null)} />}
         {active && <ServicePanel locale={locale} service={active} onClose={() => setActive(null)} />}
       </div>
       <div className="executive-pair">
@@ -145,7 +162,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </article>
       </div>
     </section>
-    <section className="trust-bar">{text.stats.map((stat, index) => <span key={stat}>{["⚓", "▣", "◎", "❧"][index]} {stat}</span>)}<Link className="lime-button trust-cta" href={locale === "es" ? "/servicios" : "/en/services"}>{text.discover}</Link></section>
+    <section className="trust-bar">{text.stats.map((stat) => <span className="trust-item" key={stat}>{stat}</span>)}<Link className="lime-button trust-cta" href={locale === "es" ? "/servicios" : "/en/services"}>{text.discover}</Link></section>
   </PageShell>;
 }
 
