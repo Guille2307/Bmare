@@ -128,6 +128,7 @@ img { max-width: 100%; display: block; }
 .hero-stage.has-active .executive { opacity: 0.2; }
 .trust-bar { display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 3vw, 3rem); flex-wrap: wrap; padding: 1.1rem clamp(1rem, 4vw, 4rem); background: var(--navy-900); color: var(--mint); font-size: 0.78rem; }
 .trust-bar a { color: var(--white); font-weight: 900; text-decoration: none; }
+.trust-bar .trust-cta { color: var(--ink); }
 
 .page-hero { padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 7vw, 7rem); background: linear-gradient(100deg, rgba(0, 31, 48, 0.97), rgba(3, 77, 91, 0.68)), url("/assets/ship-aerial-concept.webp") center / cover; }
 .page-hero h1 { max-width: 14ch; margin: 1rem 0; font-size: clamp(2.7rem, 7vw, 6rem); line-height: 0.95; letter-spacing: -0.05em; }
@@ -165,6 +166,17 @@ img { max-width: 100%; display: block; }
   .executive { width: 28vw; opacity: 0.72; }
 }
 @media (max-width: 900px) {
+  /* On touch layouts the portrait master is the background of the complete
+     hero. This keeps the ocean continuous behind the copy, flower and people;
+     the orbit below is only the transparent interaction layer. */
+  .hero-stage {
+    background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/drive/info-responsive.png");
+    background-position: center, center 58%;
+    background-size: cover, cover;
+    background-repeat: no-repeat;
+    background-color: #06384e;
+  }
+  .hero-stage::before { display: none; }
   .site-header { flex-wrap: wrap; min-height: 70px; }
   .brand img { width: 140px; }
   .menu-toggle { display: inline-flex; margin-left: auto; }
@@ -172,13 +184,42 @@ img { max-width: 100%; display: block; }
   .site-nav.is-open { display: flex; }
   .site-nav a { padding: 0.65rem 0; font-size: 0.8rem; }
   .header-cta { display: none; }
-  .home-grid { grid-template-columns: 1fr; min-height: auto; padding-bottom: 14rem; }
+  .home-grid { grid-template-columns: 1fr; min-height: auto; padding-bottom: 2rem; }
   .hero-copy { padding-top: 1rem; text-align: center; }
   .hero-copy h1 { margin-right: auto; margin-left: auto; }
   .hero-copy p { margin-right: auto; margin-left: auto; }
   .hero-copy strong::after { margin-right: auto; margin-left: auto; }
-  .orbit-wrap { min-height: auto; transform: none; }
-  .orbit { position: relative; top: auto; left: 50%; width: min(94vw, 620px); aspect-ratio: 1; transform: translateX(-50%); }
+  /* Keep the service orbit centred on the portrait artwork. The flower and
+     the service ring therefore share one axis at every touch breakpoint. */
+  .orbit-wrap {
+    width: min(100%, 680px);
+    aspect-ratio: 0.88;
+    min-height: 0;
+    margin-inline: auto;
+    transform: none;
+  }
+  .orbit-wrap::before { display: none; }
+  .orbit {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    transform: none;
+  }
+  /* Mobile/tablet ring: move the service controls outside the petals instead
+     of leaving them over the flower. Inline coordinates from the component
+     remain the desktop layout; these important overrides are touch-only. */
+  .orbit > .petal:nth-child(1) { --x: 34% !important; --y: 10% !important; }
+  .orbit > .petal:nth-child(2) { --x: 66% !important; --y: 10% !important; }
+  .orbit > .petal:nth-child(3) { --x: 82% !important; --y: 29% !important; }
+  .orbit > .petal:nth-child(4) { --x: 90% !important; --y: 50% !important; }
+  .orbit > .petal:nth-child(5) { --x: 85% !important; --y: 70% !important; }
+  .orbit > .petal:nth-child(6) { --x: 66% !important; --y: 90% !important; }
+  .orbit > .petal:nth-child(7) { --x: 10% !important; --y: 50% !important; }
+  .orbit > .petal:nth-child(8) { --x: 34% !important; --y: 90% !important; }
+  .orbit > .petal:nth-child(9) { --x: 15% !important; --y: 70% !important; }
+  .orbit > .petal:nth-child(10) { --x: 18% !important; --y: 29% !important; }
   .petal { width: clamp(88px, 17vw, 132px); }
   .service-panel { grid-column: auto; grid-row: auto; margin: 0 auto; width: min(100%, 520px); }
   .executive-pair { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; background: linear-gradient(180deg, rgba(0, 29, 45, 0), rgba(0, 29, 45, 0.95)); }
@@ -189,16 +230,42 @@ img { max-width: 100%; display: block; }
   .hero-stage.has-active .executive { opacity: 1; }
   .locations-grid { grid-template-columns: 1fr; }
 }
+@media (min-width: 561px) and (max-width: 900px) {
+  /* Give the tablet hero enough breathing room below the sticky header. */
+  .home-grid { padding-top: 2.75rem; }
+  .hero-copy { padding-top: 0; }
+  .orbit-wrap { aspect-ratio: 1.08; }
+  /* The portrait artwork otherwise fits the tablet hero at exactly 100% of
+     its height, making vertical positioning ineffective. A controlled scale
+     and bottom anchor lift the flower while keeping the ocean full bleed. */
+  .hero-stage {
+    background-position: center, center 100%;
+    background-size: cover, auto 112%;
+  }
+}
 @media (max-width: 560px) {
-  .hero-stage { background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.82) 0%, rgba(0, 46, 66, 0.2) 58%, rgba(0, 29, 47, 0.72) 100%), url("/assets/drive/info-ok.webp"); background-position: center top; background-size: cover; background-repeat: no-repeat; }
   .site-header { gap: 0.6rem; padding-right: 0.85rem; padding-left: 0.85rem; }
   .brand img { width: 126px; }
   .language-switch { margin-left: 0; font-size: 0.65rem; }
-  .home-grid { padding-top: 2rem; padding-bottom: 6rem; }
-  .hero-copy h1 { font-size: clamp(2.25rem, 12vw, 3.3rem); }
+  /* On the narrow phone canvas the artwork needs a slightly tighter,
+     bottom-anchored crop so the flower sits on the same axis as the ring. */
+  .hero-stage {
+    background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/drive/info-mobile-v3.png");
+    background-position: center, center 100%;
+    background-size: cover, auto 116%;
+  }
+  /* The phone has very little vertical room, so keep the intro compact and
+     give the complete flower-and-ring composition its own centred canvas. */
+  .home-grid { padding-top: 1rem; padding-bottom: 1rem; }
+  .hero-copy { padding-top: 0; }
+  .hero-copy h1 { margin-top: 0.8rem; margin-bottom: 0.75rem; font-size: clamp(2rem, 10.5vw, 2.65rem); }
+  .hero-copy p { font-size: 0.88rem; line-height: 1.32; }
+  .hero-copy strong { margin: 0.65rem 0 0.85rem; font-size: 0.86rem; }
+  .hero-copy .lime-button { padding: 0.68rem 0.78rem; }
+  .orbit-wrap { aspect-ratio: 0.78; margin-top: -0.25rem; }
   .orbit { width: 100%; }
   .ship-core { width: 55px; height: 220px; }
-  .petal { width: 78px; padding: 0.25rem; }
+  .petal { width: 80px; padding: 0.25rem; }
   .petal .petal-icon { min-height: 2rem; font-size: 1.2rem; }
   .petal .petal-icon img, .petal .petal-icon svg { width: 2.3rem; height: 2.3rem; }
   .petal .petal-label { font-size: 0.56rem; }

@@ -5,8 +5,8 @@ import { useState, type CSSProperties } from "react";
 import { locations, navigation, services, type Locale, type Service } from "@/lib/content";
 
 const copy = {
-  es: { eyebrow: "SMART MARITIME FLEET MANAGEMENT", title: "Te acompañamos en cada travesía", intro: "Gestión integral de flotas para buques mercantes, pesqueros y operaciones offshore.", promise: "Anticipar. Coordinar. Resolver.", discover: "DESCUBRE NUESTROS SERVICIOS", quote: ["Your voyage,", "our responsibility.", "Your partner", "on every route."], team: "CONOCE NUESTRO EQUIPO", serviceLabel: "SERVICIOS", full: "VER SERVICIO COMPLETO", close: "Cerrar ficha", stats: ["Experiencia marítima", "Gestión integral de flotas", "Presencia internacional", "Compromiso ambiental"] },
-  en: { eyebrow: "SMART MARITIME FLEET MANAGEMENT", title: "With you on every voyage", intro: "Integrated fleet management for merchant, fishing and offshore vessels.", promise: "Anticipate. Coordinate. Resolve.", discover: "EXPLORE OUR SERVICES", quote: ["Your voyage,", "our responsibility.", "Your partner", "on every route."], team: "MEET OUR TEAM", serviceLabel: "SERVICES", full: "VIEW FULL SERVICE", close: "Close service panel", stats: ["Maritime experience", "Integrated fleet management", "International presence", "Environmental commitment"] },
+  es: { eyebrow: "SMART MARITIME FLEET MANAGEMENT", title: "Te acompañamos en cada travesía", intro: "Gestión integral de flotas para buques mercantes, pesqueros y operaciones offshore.", discover: "DESCUBRE NUESTROS SERVICIOS", quote: ["Your voyage,", "our responsibility.", "Your partner", "on every route."], serviceLabel: "SERVICIOS", full: "VER SERVICIO COMPLETO", close: "Cerrar ficha", stats: ["Experiencia marítima", "Gestión integral de flotas", "Presencia internacional", "Compromiso ambiental"] },
+  en: { eyebrow: "SMART MARITIME FLEET MANAGEMENT", title: "With you on every voyage", intro: "Integrated fleet management for merchant, fishing and offshore vessels.", discover: "EXPLORE OUR SERVICES", quote: ["Your voyage,", "our responsibility.", "Your partner", "on every route."], serviceLabel: "SERVICES", full: "VIEW FULL SERVICE", close: "Close service panel", stats: ["Maritime experience", "Integrated fleet management", "International presence", "Environmental commitment"] },
 };
 
 function hrefFor(locale: Locale, service: Service) {
@@ -63,7 +63,7 @@ export function Header({ locale, currentHref, alternateHref }: { locale: Locale;
       <div className="language-switch" aria-label="Language selector">
         <Link className={locale === "es" ? "active" : ""} href={locale === "es" ? currentHref : alternateHref}>ES</Link><span>|</span><Link className={locale === "en" ? "active" : ""} href={locale === "en" ? currentHref : alternateHref}>EN</Link>
       </div>
-      <Link className="header-cta" href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "CONTACTA" : "CONTACT US"} <span aria-hidden="true">→</span></Link>
+      <Link className="header-cta" href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "CONTACTA" : "CONTACT US"}</Link>
     </header>
   );
 }
@@ -116,8 +116,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     <section className={`hero-stage${active ? " has-active" : ""}`}>
       <div className="home-grid">
         <div className="hero-copy">
-          <span className="eyebrow">{text.eyebrow}</span><h1>{text.title}</h1><p>{text.intro}</p><strong>{text.promise}</strong>
-          <Link className="lime-button" href={locale === "es" ? "/servicios" : "/en/services"}>{text.discover} <span aria-hidden="true">→</span></Link>
+          <span className="eyebrow">{text.eyebrow}</span><h1>{text.title}</h1><p>{text.intro}</p>
         </div>
         <div className="orbit-wrap" id="services">
           <div className="orbit" aria-label={text.serviceLabel}>
@@ -146,7 +145,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </article>
       </div>
     </section>
-    <section className="trust-bar">{text.stats.map((stat, index) => <span key={stat}>{["⚓", "▣", "◎", "❧"][index]} {stat}</span>)}<Link href={locale === "es" ? "/equipo" : "/en/team"}>{text.team} →</Link></section>
+    <section className="trust-bar">{text.stats.map((stat, index) => <span key={stat}>{["⚓", "▣", "◎", "❧"][index]} {stat}</span>)}<Link className="lime-button trust-cta" href={locale === "es" ? "/servicios" : "/en/services"}>{text.discover}</Link></section>
   </PageShell>;
 }
 
