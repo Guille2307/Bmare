@@ -23,7 +23,7 @@ test("renders the Spanish home without starter metadata", async () => {
   const html = await response.text();
   assert.match(html, /<title>BMARE \| Gestión integral de flotas<\/title>/i);
   assert.match(html, /Te acompañamos en cada travesía/);
-  assert.match(html, /SMART MARITIME FLEET MANAGEMENT/);
+  assert.match(html, /GESTIÓN INTELIGENTE DE FLOTAS MARÍTIMAS/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|SkeletonPreview/i);
 });
 

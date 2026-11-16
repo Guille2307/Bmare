@@ -7,8 +7,8 @@ export type Service = {
   icon: string;
   iconSrc?: string;
   image: string;
-  es: { title: string; summary: string; features: string[] };
-  en: { title: string; summary: string; features: string[] };
+  es: { title: string; summary: string; features: string[]; sectionTitle?: string; detailHeading?: string; detailParagraphs?: string[]; detailTagline?: string };
+  en: { title: string; summary: string; features: string[]; sectionTitle?: string; detailHeading?: string; detailParagraphs?: string[]; detailTagline?: string };
 };
 
 export const services: Service[] = [
@@ -88,7 +88,7 @@ export const services: Service[] = [
     icon: "▥",
     iconSrc: "/assets/drive/iconos-bmare-04-crop.png",
     image: "/assets/service-08.webp",
-    es: { title: "Finanzas y presupuestos", summary: "Ofrecemos control económico y apoyo en la gestión de riesgos para proteger la operación y los activos marítimos.", features: ["Presupuestos OPEX y CAPEX", "Reporting de costes", "Análisis económico", "Seguros marítimos"] },
+    es: { title: "Finanzas y presupuestos", summary: "Ofrecemos control económico y apoyo en la gestión de riesgos para proteger la operación y los activos marítimos.", features: ["Presupuestos OPEX y CAPEX", "Informes de costes", "Análisis económico", "Seguros marítimos"] },
     en: { title: "Finance and budgeting", summary: "We provide financial oversight and risk management support to protect maritime operations and assets.", features: ["OPEX and CAPEX budgets", "Cost reporting", "Financial analysis", "Marine insurance"] },
   },
   {
@@ -110,6 +110,68 @@ export const services: Service[] = [
     es: { title: "Sostenibilidad", summary: "Ayudamos a las flotas a mejorar su desempeño ambiental y avanzar hacia operaciones más responsables.", features: ["Cumplimiento ambiental", "Emisiones y eficiencia", "Descarbonización", "Gestión ambiental"] },
     en: { title: "Sustainability", summary: "We help fleets improve environmental performance, manage emissions and advance more responsible operations.", features: ["Environmental compliance", "Emissions and efficiency", "Decarbonisation", "Environmental systems"] },
   },
+  {
+    key: "marineInsurance",
+    esSlug: "seguros-maritimos-y-gestion-de-riesgos",
+    enSlug: "marine-insurance-risk-management",
+    icon: "▣",
+    iconSrc: "/assets/drive/iconos-bmare-13-crop.png",
+    image: "/assets/service-11.webp",
+    es: {
+      title: "Seguros marítimos y gestión de riesgos",
+      summary: "Protegemos tus buques, personas y operaciones mediante asesoramiento experto en seguros y gestión de riesgos.",
+      sectionTitle: "Nuestros servicios",
+      detailHeading: "¿Por qué BMARE?",
+      detailParagraphs: [
+        "BMARE ofrece asesoramiento independiente en seguros a armadores, gestores y operadores. Ayudamos a identificar y mitigar riesgos, optimizar la cobertura y gestionar los siniestros con eficiencia. Nuestro objetivo es proteger los activos, apoyar la continuidad del negocio y reducir la exposición operativa y financiera durante todo el ciclo de vida de las operaciones marítimas.",
+        "Combinamos experiencia marítima, técnica, operativa y de cumplimiento para ofrecer soluciones prácticas de seguros y gestión de riesgos adaptadas a las necesidades de la industria. Trabajamos junto a nuestros clientes para reforzar su resiliencia, gestionar sus responsabilidades y apoyar operaciones seguras, conformes y sostenibles.",
+      ],
+      detailTagline: "Asesoramiento independiente, soluciones prácticas y experiencia marítima de confianza.",
+      features: [
+        "Seguro de Casco y Maquinaria (H&M)",
+        "Seguro de Protección e Indemnización (P&I)",
+        "Seguro de tripulación y MLC",
+        "Seguro de carga y responsabilidad civil",
+        "Cobertura para buques offshore y especializados",
+        "Asesoramiento en responsabilidad ambiental y riesgo de contaminación",
+        "Revisión de seguros y análisis de brechas de cobertura",
+        "Gestión y recuperación de siniestros",
+        "Evaluaciones de riesgos de flota",
+        "Asesoramiento en seguros de riesgos cibernéticos y digitales",
+        "Prevención de pérdidas y mitigación de riesgos",
+        "Apoyo en renovaciones de seguros",
+        "Due diligence para adquisiciones de buques",
+        "Interlocución con aseguradoras, brokers y clubes P&I",
+      ],
+    },
+    en: {
+      title: "Marine Insurance & Risk Management",
+      summary: "Protecting your vessels, people, and operations through expert insurance and risk management support.",
+      sectionTitle: "Our Services",
+      detailHeading: "Why BMARE?",
+      detailParagraphs: [
+        "BMARE provides independent insurance advisory services to shipowners, managers, and operators. We help clients identify and mitigate risks, optimise insurance coverage, and navigate claims efficiently. Our focus is to protect assets, support business continuity and reduce operational and financial exposure throughout the lifecycle of your maritime operations.",
+        "Combining maritime, technical, operational, and compliance expertise, BMARE delivers practical insurance and risk management solutions tailored to the needs of the maritime industry. We work alongside our clients to strengthen resilience, manage liabilities, and support safe, compliant and sustainable operations.",
+      ],
+      detailTagline: "Independent Advice, Practical Solutions & Trusted Maritime Expertise.",
+      features: [
+        "Hull & Machinery (H&M) Insurance",
+        "Protection & Indemnity (P&I) Insurance",
+        "Crew & MLC Insurance",
+        "Cargo & Liability Insurance",
+        "Offshore & Specialized Vessel Coverage",
+        "Environmental Liability & Pollution Risk Advisory",
+        "Insurance Reviews & Gap Analysis",
+        "Claims Management & Recovery Support",
+        "Fleet Risk Assessments",
+        "Cyber & Digital Risk Insurance Advisory",
+        "Loss Prevention & Risk Mitigation",
+        "Insurance Renewal Support",
+        "Due Diligence for Vessel Acquisitions",
+        "Liaison with Insurers, Brokers & P&I Clubs",
+      ],
+    },
+  },
 ];
 
 export const navigation = {
@@ -122,9 +184,9 @@ export const navigation = {
 } as const;
 
 export const locations = [
-  { name: "BMARE Vigo, Spain", address: ["Muelle de Reparaciones de Bouzas, 12", "36208, Vigo"], phone: "+34 986 238767", email: "fernando.lema@bmareshipmanagement.com", map: "https://maps.google.com/?q=Muelle+de+Reparaciones+de+Bouzas+12+Vigo" },
-  { name: "BMARE A Coruña, Spain", address: ["Beldoña 39", "15318, Abegondo / A Coruña"], phone: "+34 636 094121", email: "pamor@bmareshipmanagement.com", map: "https://maps.google.com/?q=Beldoña+39+Abegondo" },
-  { name: "BMARE Harlingen, Netherlands", address: ["Zuiderhaven 68", "8861 XV Harlingen"], phone: "+31 651 279603", email: "darends@bmareshipmanagement.com", map: "https://maps.google.com/?q=Zuiderhaven+68+Harlingen" },
+  { nameEs: "BMARE Vigo, España", nameEn: "BMARE Vigo, Spain", address: ["Muelle de Reparaciones de Bouzas, 12", "36208, Vigo"], phone: "+34 986 238767", email: "fernando.lema@bmareshipmanagement.com", map: "https://maps.google.com/?q=Muelle+de+Reparaciones+de+Bouzas+12+Vigo" },
+  { nameEs: "BMARE A Coruña, España", nameEn: "BMARE A Coruña, Spain", address: ["Beldoña 39", "15318, Abegondo / A Coruña"], phone: "+34 636 094121", email: "pamor@bmareshipmanagement.com", map: "https://maps.google.com/?q=Beldoña+39+Abegondo" },
+  { nameEs: "BMARE Harlingen, Países Bajos", nameEn: "BMARE Harlingen, Netherlands", address: ["Zuiderhaven 68", "8861 XV Harlingen"], phone: "+31 651 279603", email: "darends@bmareshipmanagement.com", map: "https://maps.google.com/?q=Zuiderhaven+68+Harlingen" },
 ];
 
 export function serviceForSlug(locale: Locale, slug: string) {

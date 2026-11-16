@@ -5,8 +5,8 @@
   --navy-900: #002c44;
   --navy-800: #063d58;
   --navy-700: #0b5264;
-  --lime: #a5ec43;
-  --lime-soft: #d5ff91;
+  --lime: #d5ff91;
+  --lime-soft: #a5ec43;
   --mint: #c7f3df;
   --white: #f7fbfc;
   --ink: #052b42;
@@ -54,6 +54,8 @@ img { max-width: 100%; display: block; }
   border-bottom: 1px solid var(--line);
   background: rgba(0, 29, 45, 0.94);
   backdrop-filter: blur(16px);
+  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 .brand { flex: 0 0 auto; display: inline-flex; align-items: center; }
 .brand img { width: 140px; height: auto; object-fit: contain; }
@@ -68,10 +70,11 @@ img { max-width: 100%; display: block; }
 
 .hero-stage {
   position: relative;
+  width: 100%;
   min-height: calc(100svh - 82px - 72px);
   overflow: hidden;
   isolation: isolate;
-  background: linear-gradient(90deg, rgba(0, 29, 47, 0.82) 0%, rgba(0, 46, 66, 0.16) 48%, rgba(0, 53, 73, 0.22) 100%), url("/assets/drive/info-horizontal-ok.webp") calc(50% + 3.7vw) center / cover no-repeat;
+  background: linear-gradient(90deg, rgba(0, 29, 47, 0.82) 0%, rgba(0, 46, 66, 0.16) 48%, rgba(0, 53, 73, 0.22) 100%), url("/assets/hero-bg-4k-landscape.webp") center center / cover no-repeat;
 }
 .hero-stage::after { content: ""; position: absolute; inset: auto 0 0; height: 18%; z-index: -1; background: linear-gradient(transparent, rgba(0, 16, 29, 0.6)); pointer-events: none; }
 .home-grid { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(340px, 0.95fr) minmax(460px, 1.45fr) minmax(340px, 0.95fr); gap: clamp(1.25rem, 2.5vw, 2.75rem); align-items: center; max-width: 1700px; min-height: calc(100svh - 82px - 72px); margin: 0 auto; padding: 1rem clamp(1rem, 4vw, 4rem) 5rem; }
@@ -93,7 +96,8 @@ img { max-width: 100%; display: block; }
 .petal .petal-icon { display: grid; place-items: center; min-height: 2.55rem; color: var(--white); font-size: clamp(1.35rem, 2.3vw, 2rem); line-height: 1; }
 .petal .petal-icon img, .petal .petal-icon svg { width: clamp(2.45rem, 3.2vw, 3.25rem); height: clamp(2.45rem, 3.2vw, 3.25rem); object-fit: contain; }
 .petal .petal-label { max-width: 17ch; font-size: clamp(0.64rem, 0.8vw, 0.78rem); font-weight: 900; line-height: 1.08; }
-.petal .petal-summary { max-width: 19ch; color: #e0eef2; font-size: clamp(0.48rem, 0.58vw, 0.58rem); font-weight: 600; line-height: 1.16; }
+.petal-marineInsurance { width: clamp(150px, 12vw, 190px); }
+.petal-marineInsurance .petal-label { max-width: 18ch; }
 .service-panel { position: relative; z-index: 20; grid-column: 3; grid-row: 1; align-self: center; width: 100%; max-width: 430px; max-height: calc(100svh - 2rem); overflow: auto; margin: 0 auto; padding: clamp(1.35rem, 2vw, 1.8rem); border: 1px solid rgba(22, 57, 71, 0.18); border-radius: 1.3rem; background: rgba(255, 255, 255, 0.98); color: var(--ink); box-shadow: var(--shadow); animation: service-panel-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .service-panel[hidden] { display: none; }
 .service-modal-backdrop { display: none; }
@@ -103,6 +107,7 @@ img { max-width: 100%; display: block; }
 .panel-icon img { width: 100%; height: 100%; object-fit: contain; margin: 0; }
 .panel-kicker { color: #65a937; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 .service-panel h2 { max-width: 12ch; margin: 0.8rem 0 0.65rem; font-size: clamp(1.7rem, 2.6vw, 2.6rem); line-height: 1.02; letter-spacing: -0.04em; }
+.service-panel .panel-service-intro { margin: 0 0 0.85rem; color: var(--ink); font-size: 0.95rem; font-weight: 700; line-height: 1.4; }
 .service-panel .panel-lead { margin: 0 0 0.75rem; color: #62737b; font-size: 0.67rem; font-weight: 900; letter-spacing: 0.14em; line-height: 1.3; }
 .service-panel p { color: #315362; font-size: 0.9rem; line-height: 1.5; }
 .service-panel img { width: 100%; height: 150px; object-fit: cover; border-radius: 0.7rem; margin: 1rem 0; }
@@ -152,6 +157,10 @@ img { max-width: 100%; display: block; }
 .trust-item + .trust-item { padding-left: clamp(1rem, 2.5vw, 2.4rem); border-left: 1px solid rgba(199, 243, 223, 0.22); }
 .trust-bar a { color: var(--white); font-weight: 900; text-decoration: none; }
 .trust-bar .trust-cta { color: var(--ink); }
+.trust-actions { display: flex; flex-direction: column; align-items: stretch; gap: 0.45rem; min-width: min(100%, 280px); }
+.trust-actions .trust-cta, .trust-download { width: 100%; }
+.trust-download { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--lime); border-radius: 999px; padding: 0.85rem 1.25rem; color: var(--white); font-size: 0.72rem; font-weight: 900; text-align: center; transition: background 160ms ease, color 160ms ease; }
+.trust-download:hover, .trust-download:focus-visible { background: var(--lime); color: var(--ink); }
 
 .page-hero { padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 7vw, 7rem); background: linear-gradient(100deg, rgba(0, 31, 48, 0.97), rgba(3, 77, 91, 0.68)), url("/assets/ship-aerial-concept.webp") center / cover; }
 .page-hero h1 { max-width: 14ch; margin: 1rem 0; font-size: clamp(2.7rem, 7vw, 6rem); line-height: 0.95; letter-spacing: -0.05em; }
@@ -159,6 +168,8 @@ img { max-width: 100%; display: block; }
 .content-section { max-width: 1250px; margin: 0 auto; padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 4vw, 4rem); }
 .content-section h2 { margin-top: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; }
 .content-section p { max-width: 55rem; color: #d1e5e9; line-height: 1.7; }
+.service-detail-tagline { color: var(--lime) !important; font-weight: 900; }
+.service-home-button { margin-top: 1rem; }
 .cards-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
 .service-card, .location-card, .news-card { display: flex; flex-direction: column; min-height: 100%; border: 1px solid rgba(196, 237, 230, 0.2); border-radius: 1rem; overflow: hidden; background: linear-gradient(145deg, rgba(18, 73, 87, 0.95), rgba(4, 44, 62, 0.95)); }
 .service-card img, .news-card img { width: 100%; height: 190px; object-fit: cover; }
@@ -184,17 +195,34 @@ img { max-width: 100%; display: block; }
   .home-grid { grid-template-columns: minmax(260px, 0.8fr) minmax(410px, 1.35fr); }
   .quote { display: none; }
   .service-panel { grid-column: 2; grid-row: auto; margin-top: -1rem; }
-  .petal-summary { display: none; }
   .orbit { width: min(64vw, 680px); }
   .executive { width: 28vw; opacity: 0.72; }
+}
+@media (min-width: 901px) {
+  /* The desktop header can slide out of view, so let the home artwork sit
+     behind its reserved space instead of exposing the page background. */
+  .hero-stage {
+    margin-top: -82px;
+    padding-top: 82px;
+    min-height: calc(100svh - 72px);
+    background-position: center calc(50% + 3rem);
+  }
+  .orbit-wrap { transform: translateY(-0.5rem); }
+  .site-header.is-auto-hidden {
+    transform: translateY(calc(-100% + 12px));
+  }
+  .site-header.is-auto-hidden:hover,
+  .site-header.is-auto-hidden:focus-within {
+    transform: translateY(0);
+  }
 }
 @media (max-width: 900px) {
   /* On touch layouts the portrait master is the background of the complete
      hero. This keeps the ocean continuous behind the copy, flower and people;
      the orbit below is only the transparent interaction layer. */
   .hero-stage {
-    background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/drive/info-responsive.png");
-    background-position: center, center 58%;
+    background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/hero-bg-4k-tablet.webp");
+    background-position: center, center bottom;
     background-size: cover, cover;
     background-repeat: no-repeat;
     background-color: #06384e;
@@ -238,12 +266,14 @@ img { max-width: 100%; display: block; }
   .orbit > .petal:nth-child(3) { --x: 82% !important; --y: 29% !important; }
   .orbit > .petal:nth-child(4) { --x: 90% !important; --y: 50% !important; }
   .orbit > .petal:nth-child(5) { --x: 85% !important; --y: 70% !important; }
-  .orbit > .petal:nth-child(6) { --x: 66% !important; --y: 90% !important; }
+  .orbit > .petal:nth-child(6) { --x: 72% !important; --y: 87% !important; }
   .orbit > .petal:nth-child(7) { --x: 10% !important; --y: 50% !important; }
-  .orbit > .petal:nth-child(8) { --x: 34% !important; --y: 90% !important; }
+  .orbit > .petal:nth-child(8) { --x: 28% !important; --y: 87% !important; }
   .orbit > .petal:nth-child(9) { --x: 15% !important; --y: 70% !important; }
   .orbit > .petal:nth-child(10) { --x: 18% !important; --y: 29% !important; }
+  .orbit > .petal:nth-child(11) { --x: 50% !important; --y: 95% !important; }
   .petal { width: clamp(88px, 17vw, 132px); }
+  .petal-marineInsurance { width: clamp(108px, 20vw, 150px); }
   .service-modal-backdrop { display: block; position: fixed; z-index: 10; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: rgba(0, 18, 30, 0.58); cursor: default; animation: service-modal-backdrop-enter 260ms ease-out both; }
   .service-panel { position: fixed; z-index: 20; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom)); grid-column: auto; grid-row: auto; width: min(calc(100vw - 2rem), 520px); max-height: min(84svh, 700px); margin: 0; animation: service-panel-mobile-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both; }
   .executive-pair { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; background: linear-gradient(180deg, rgba(0, 29, 45, 0), rgba(0, 29, 45, 0.95)); }
@@ -263,8 +293,8 @@ img { max-width: 100%; display: block; }
      its height, making vertical positioning ineffective. A controlled scale
      and bottom anchor lift the flower while keeping the ocean full bleed. */
   .hero-stage {
-    background-position: center, center 100%;
-    background-size: cover, auto 112%;
+    background-position: center, center calc(50% - 4.25rem);
+    background-size: cover, cover;
   }
   .service-panel { top: 50%; bottom: auto; max-height: calc(100svh - 4rem); animation: service-panel-tablet-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 }
@@ -275,8 +305,8 @@ img { max-width: 100%; display: block; }
   /* On the narrow phone canvas the artwork needs a slightly tighter,
      bottom-anchored crop so the flower sits on the same axis as the ring. */
   .hero-stage {
-    background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/drive/info-mobile-v3.png");
-    background-position: center, center 100%;
+    background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/hero-bg-4k-mobile.webp");
+    background-position: center, center calc(100% + 1.5rem);
     background-size: cover, auto 116%;
   }
   /* The phone has very little vertical room, so keep the intro compact and
@@ -294,7 +324,8 @@ img { max-width: 100%; display: block; }
   .petal .petal-icon { min-height: 2rem; font-size: 1.2rem; }
   .petal .petal-icon img, .petal .petal-icon svg { width: 2.3rem; height: 2.3rem; }
   .petal .petal-label { font-size: 0.56rem; }
-  .petal-summary { display: none; }
+  .petal-marineInsurance { width: 112px; }
+  .petal-marineInsurance .petal-label { max-width: 18ch; font-size: 0.52rem; }
   .feature-list { grid-template-columns: 1fr; }
   .executive-pair { grid-template-columns: 1fr; }
   .executive { height: 390px; }
@@ -303,7 +334,7 @@ img { max-width: 100%; display: block; }
   .trust-bar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 0.55rem 0.85rem; padding: 1rem; }
   .trust-item { min-width: 0; white-space: normal; font-size: 0.68rem; line-height: 1.2; }
   .trust-item + .trust-item { padding-left: 0; border-left: 0; }
-  .trust-cta { grid-column: 1 / -1; justify-self: center; width: min(100%, 280px); margin-top: 0.25rem; }
+  .trust-actions { grid-column: 1 / -1; justify-self: center; width: min(100%, 280px); margin-top: 0.25rem; }
   .cards-grid { grid-template-columns: 1fr; }
   .page-hero { padding-top: 3.5rem; padding-bottom: 3.5rem; }
   .content-section { padding-top: 3rem; padding-bottom: 3rem; }
