@@ -328,6 +328,13 @@ img { max-width: 100%; display: block; }
   .petal .petal-label { font-size: 0.56rem; }
   .petal-marineInsurance { width: 112px; }
   .petal-marineInsurance .petal-label { max-width: 18ch; font-size: 0.52rem; }
+  /* On phones, stagger the lower ring so the three bottom labels remain
+     legible instead of stacking into one another. */
+  .orbit > .petal:nth-child(5) { --y: 66% !important; }
+  .orbit > .petal:nth-child(9) { --y: 66% !important; }
+  .orbit > .petal:nth-child(6) { --y: 79% !important; }
+  .orbit > .petal:nth-child(8) { --y: 79% !important; }
+  .orbit > .petal:nth-child(11) { --y: 90% !important; }
   .feature-list { grid-template-columns: 1fr; }
   .executive-pair { grid-template-columns: 1fr; }
   .executive { height: 390px; }
