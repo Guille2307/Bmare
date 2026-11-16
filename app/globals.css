@@ -106,7 +106,7 @@ img { max-width: 100%; display: block; }
 .panel-icon { display: grid; place-items: center; width: 2rem; height: 2rem; color: #6ab63a; font-size: 1.7rem; line-height: 1; }
 .panel-icon img { width: 100%; height: 100%; object-fit: contain; margin: 0; }
 .panel-kicker { color: #65a937; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
-.service-panel h2 { max-width: 12ch; margin: 0.8rem 0 0.65rem; font-size: clamp(1.7rem, 2.6vw, 2.6rem); line-height: 1.02; letter-spacing: -0.04em; }
+.service-panel h2 { max-width: 16ch; margin: 0.8rem 0 0.65rem; font-size: clamp(1.7rem, 2.6vw, 2.6rem); line-height: 1.02; letter-spacing: -0.04em; }
 .service-panel .panel-service-intro { margin: 0 0 0.85rem; color: var(--ink); font-size: 0.95rem; font-weight: 700; line-height: 1.4; }
 .service-panel .panel-lead { margin: 0 0 0.75rem; color: #62737b; font-size: 0.67rem; font-weight: 900; letter-spacing: 0.14em; line-height: 1.3; }
 .service-panel p { color: #315362; font-size: 0.9rem; line-height: 1.5; }
@@ -221,6 +221,7 @@ img { max-width: 100%; display: block; }
      hero. This keeps the ocean continuous behind the copy, flower and people;
      the orbit below is only the transparent interaction layer. */
   .hero-stage {
+    min-height: 100svh;
     background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/hero-bg-4k-tablet.webp");
     background-position: center, center bottom;
     background-size: cover, cover;
@@ -235,7 +236,7 @@ img { max-width: 100%; display: block; }
   .site-nav.is-open { display: flex; }
   .site-nav a { padding: 0.65rem 0; font-size: 0.8rem; }
   .header-cta { display: none; }
-  .home-grid { grid-template-columns: 1fr; min-height: auto; padding-bottom: 2rem; }
+  .home-grid { grid-template-columns: 1fr; min-height: calc(100svh - 70px); align-content: start; padding-bottom: 2rem; }
   .hero-copy { padding-top: 1rem; text-align: center; }
   .hero-copy h1 { margin-right: auto; margin-left: auto; }
   .hero-copy p { margin-right: auto; margin-left: auto; }
@@ -305,6 +306,7 @@ img { max-width: 100%; display: block; }
   /* On the narrow phone canvas the artwork needs a slightly tighter,
      bottom-anchored crop so the flower sits on the same axis as the ring. */
   .hero-stage {
+    min-height: 100svh;
     background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/hero-bg-4k-mobile.webp");
     background-position: center, center calc(100% + 1.5rem);
     background-size: cover, auto 116%;

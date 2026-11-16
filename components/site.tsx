@@ -89,7 +89,7 @@ function ServicePanel({ locale, service, onClose }: { locale: Locale; service: S
   return <aside className="service-panel" aria-live="polite">
     <button className="panel-close" type="button" onClick={onClose} aria-label={copy[locale].close}>×</button>
     <div className="panel-heading"><span className="panel-icon" aria-hidden="true">{service.iconSrc ? <img src={service.iconSrc} alt="" /> : service.icon}</span><span className="panel-kicker">{text.title}</span></div>
-    <h2>{text.title}</h2>
+    <h2>{locale === "es" && service.key === "technical" ? <>Gestión técnica<br />y mantenimiento</> : text.title}</h2>
     <p className="panel-service-intro">{homeServiceDescriptions[locale][service.key]}</p>
     <p className="panel-lead">{locale === "es" ? "MAXIMIZAMOS LA DISPONIBILIDAD Y EL RENDIMIENTO DE SU FLOTA." : "WE MAXIMISE YOUR FLEET'S AVAILABILITY AND PERFORMANCE."}</p>
     <p>{text.summary}</p>
