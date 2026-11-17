@@ -325,7 +325,7 @@ img { max-width: 100%; display: block; }
   .hero-stage {
     min-height: 100svh;
     background-image: linear-gradient(180deg, rgba(0, 29, 47, 0.62) 0%, rgba(0, 29, 47, 0.18) 40%, rgba(0, 29, 47, 0.22) 72%, rgba(0, 29, 47, 0.72) 100%), url("/assets/hero-bg-4k-mobile.webp");
-    background-position: center, center calc(100% + 1.5rem);
+    background-position: center, center calc(100% - 2.1875rem);
     background-size: cover, auto 116%;
   }
   /* The phone has very little vertical room, so keep the intro compact and
