@@ -23,6 +23,7 @@ export const services: Service[] = [
     icon: "⚙",
     iconSrc: "/assets/drive/iconos-bmare-01-crop.png",
     image: "/assets/service-01.webp",
+    modalImage: "/assets/service-details/technical-modal.jpeg",
     detailImage: "/assets/service-details/detail-02.jpg",
     es: { title: "Gestión técnica y mantenimiento", summary: "Anticipamos incidencias y coordinamos el mantenimiento para mantener cada buque seguro, disponible y eficiente.", features: ["Planificación del mantenimiento", "Supervisión técnica a bordo", "Seguimiento de equipos", "Coordinación de reparaciones"] },
     en: { title: "Technical management and maintenance", summary: "We anticipate incidents and coordinate maintenance to keep every vessel safe, available and efficient.", features: ["Maintenance planning", "Onboard technical supervision", "Equipment monitoring", "Repair coordination"] },
