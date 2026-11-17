@@ -1,4 +1,5 @@
-import { SimpleContentPage } from "@/components/site";
+import { LegalDocumentPage } from "@/components/site";
+import { legalDocuments } from "@/lib/legal-content";
 
 export const metadata = {
   title: "Política de privacidad | BMARE",
@@ -7,14 +8,11 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <SimpleContentPage
+    <LegalDocumentPage
       locale="es"
       currentHref="/politica-de-privacidad"
       alternateHref="/en/privacy-policy"
-      title="Política de privacidad"
-      intro="Información sobre el tratamiento de datos personales en BMARE."
-      heading="Contenido legal en revisión"
-      paragraphs={["El texto legal oficial de BMARE se incorporará en esta sección después de validar el responsable del tratamiento, las finalidades, las bases jurídicas y los derechos aplicables.", "Esta página queda preparada como punto de publicación para la versión legal definitiva. No debe considerarse todavía el texto legal final."]}
+      document={legalDocuments.privacy.es}
     />
   );
 }

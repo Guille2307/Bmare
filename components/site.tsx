@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { locations, navigation, services, type Locale, type Service } from "@/lib/content";
+import type { LegalDocument } from "@/lib/legal-content";
 
 const copy = {
   es: { eyebrow: "GESTIÓN INTELIGENTE DE FLOTAS MARÍTIMAS", title: "Te acompañamos en cada travesía", intro: "Gestión integral de flotas para buques mercantes, pesqueros y operaciones offshore.", discover: "DESCUBRE NUESTROS SERVICIOS", quote: ["Tu travesía,", "nuestra responsabilidad.", "Tu socio", "en cada ruta."], serviceLabel: "SERVICIOS", full: "VER SERVICIO COMPLETO", close: "Cerrar ficha", stats: ["Experiencia marítima", "Gestión integral de flotas", "Presencia internacional", "Compromiso ambiental"] },
@@ -77,7 +78,7 @@ export function Header({ locale, currentHref, alternateHref, autoHideOnHome = fa
 }
 
 export function Footer({ locale }: { locale: Locale }) {
-  return <footer className="footer"><div className="footer-inner"><span>{locale === "es" ? "BMARE · GESTIÓN NAVAL © 2026" : "BMARE · SHIP MANAGEMENT © 2026"}</span><span><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "Contacto" : "Locations"}</Link> · <Link href={locale === "es" ? "/politica-de-privacidad" : "/en/privacy-policy"}>{locale === "es" ? "Privacidad" : "Privacy"}</Link> · <Link href={locale === "es" ? "/aviso-legal" : "/en/legal-advice"}>{locale === "es" ? "Aviso legal" : "Legal advice"}</Link></span></div></footer>;
+  return <footer className="footer"><div className="footer-inner"><span>{locale === "es" ? "BMARE · GESTIÓN NAVAL © 2026" : "BMARE · SHIP MANAGEMENT © 2026"}</span><span><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "Contacto" : "Locations"}</Link> · <Link href={locale === "es" ? "/politica-de-privacidad" : "/en/privacy-policy"}>{locale === "es" ? "Privacidad" : "Privacy"}</Link> · <Link href={locale === "es" ? "/aviso-legal" : "/en/legal-advice"}>{locale === "es" ? "Aviso legal" : "Legal notice"}</Link></span></div></footer>;
 }
 
 function PageShell({ locale, currentHref, alternateHref, autoHideHeader = false, children }: { locale: Locale; currentHref?: string; alternateHref: string; autoHideHeader?: boolean; children: React.ReactNode }) {
@@ -93,7 +94,7 @@ function ServicePanel({ locale, service, onClose }: { locale: Locale; service: S
     <p className="panel-service-intro">{homeServiceDescriptions[locale][service.key]}</p>
     <p className="panel-lead">{locale === "es" ? "MAXIMIZAMOS LA DISPONIBILIDAD Y EL RENDIMIENTO DE SU FLOTA." : "WE MAXIMISE YOUR FLEET'S AVAILABILITY AND PERFORMANCE."}</p>
     <p>{text.summary}</p>
-    <img src={service.image} alt="" />
+    <img src={service.modalImage ?? service.image} alt="" />
     <div className="panel-actions"><Link className="lime-button" href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "HABLA CON NUESTRO EQUIPO" : "TALK TO OUR TEAM"} <span aria-hidden="true">→</span></Link><Link className="secondary-button" href={hrefFor(locale, service)}>{locale === "es" ? "MÁS INFORMACIÓN" : "MORE INFORMATION"}</Link></div>
   </aside>;
 }
@@ -162,11 +163,11 @@ export function HomePage({ locale }: { locale: Locale }) {
       <div className="executive-pair">
         <article className="executive executive-paula">
           <img src="/assets/paula-hero-v2.png" alt="Paula Amor Freire" />
-          <div className="executive-copy"><strong>Paula Amor Freire</strong><span>{executiveText.paulaRole}</span><blockquote>“{executiveText.paulaQuote}”</blockquote></div>
+          <div className="executive-copy"><strong><a className="executive-link" href="https://www.linkedin.com/in/paula-amor-freire-10279467/" target="_blank" rel="noopener noreferrer" aria-label="Paula Amor Freire en LinkedIn">Paula Amor Freire</a></strong><span>{executiveText.paulaRole}</span><blockquote>“{executiveText.paulaQuote}”</blockquote></div>
         </article>
         <article className="executive executive-dirk">
           <img src="/assets/dirk-hero-v2.png" alt="Dirk Arends" />
-          <div className="executive-copy"><strong>Dirk Arends</strong><span>{executiveText.dirkRole}</span><blockquote>“{executiveText.dirkQuote}”</blockquote></div>
+          <div className="executive-copy"><strong><a className="executive-link" href="https://www.linkedin.com/in/dirk-arends/" target="_blank" rel="noopener noreferrer" aria-label="Dirk Arends en LinkedIn">Dirk Arends</a></strong><span>{executiveText.dirkRole}</span><blockquote>“{executiveText.dirkQuote}”</blockquote></div>
         </article>
       </div>
     </section>
@@ -188,12 +189,12 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
   const sectionTitle = text.sectionTitle ?? (locale === "es" ? "Ámbitos de trabajo" : "Areas of work");
   const detailHeading = text.detailHeading ?? (locale === "es" ? "Criterio técnico para avanzar" : "Technical judgement to move forward");
   const detailParagraphs = text.detailParagraphs ?? [locale === "es" ? "Integramos información técnica y operativa para facilitar decisiones oportunas, proteger tus activos y acompañar cada etapa de la travesía." : "We connect technical and operational information to support timely decisions, protect your assets and guide every stage of the voyage."];
-  return <PageShell locale={locale} currentHref={hrefFor(locale, service)} alternateHref={locale === "es" ? `/en/services/${service.enSlug}` : `/servicios/${service.esSlug}`}><PageHero locale={locale} title={text.title} intro={text.summary} /><section className="content-section"><div className="cards-grid"><article className="service-card"><img src={service.image} alt="" /><div className="card-body"><h3>{sectionTitle}</h3><ul className="feature-list">{text.features.map((feature) => <li key={feature}>{feature}</li>)}</ul><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "HABLEMOS DE TU FLOTA" : "TALK TO OUR TEAM"} →</Link></div></article><article><h2>{detailHeading}</h2>{detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{text.detailTagline && <p className="service-detail-tagline">{text.detailTagline}</p>}<Link className="lime-button service-home-button" href={locale === "es" ? "/" : "/en"}>{locale === "es" ? "VOLVER A INICIO" : "BACK TO HOME"}</Link></article></div></section></PageShell>;
+  return <PageShell locale={locale} currentHref={hrefFor(locale, service)} alternateHref={locale === "es" ? `/en/services/${service.enSlug}` : `/servicios/${service.esSlug}`}><PageHero locale={locale} title={text.title} intro={text.summary} /><section className="content-section"><div className="cards-grid"><article className="service-card"><img src={service.detailImage ?? service.image} alt="" /><div className="card-body"><h3>{sectionTitle}</h3><ul className="feature-list">{text.features.map((feature) => <li key={feature}>{feature}</li>)}</ul><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "HABLEMOS DE TU FLOTA" : "TALK TO OUR TEAM"} →</Link></div></article><article><h2>{detailHeading}</h2>{detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{text.detailTagline && <p className="service-detail-tagline">{text.detailTagline}</p>}<Link className="lime-button service-home-button" href={locale === "es" ? "/" : "/en"}>{locale === "es" ? "VOLVER A INICIO" : "BACK TO HOME"}</Link></article></div></section></PageShell>;
 }
 
 export function LocationsPage({ locale }: { locale: Locale }) {
   const text = locale === "es" ? { title: "Estamos donde nos necesitas", intro: "Con oficinas en España y Países Bajos, combinamos conocimiento local con una mirada internacional para acompañar tus operaciones." } : { title: "Wherever you are, we are close", intro: "With offices in Spain and the Netherlands, we combine local expertise with an international mindset to support your operations." };
-  return <PageShell locale={locale} currentHref={locale === "es" ? "/localizaciones" : "/en/locations"} alternateHref={locale === "es" ? "/en/locations" : "/localizaciones"}><PageHero locale={locale} {...text} /><section className="content-section"><div className="locations-grid">{locations.map((location) => <article className="location-card" key={location.nameEs}><h3>{locale === "es" ? location.nameEs : location.nameEn}</h3><address>{location.address.map((line) => <span key={line}>{line}<br /></span>)}</address><a href={`tel:${location.phone.replaceAll(" ", "")}`}>{location.phone}</a><a href={`mailto:${location.email}`}>{location.email}</a><a href={location.map} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir ubicación" : "Open location"} →</a></article>)}</div><div className="location-map"><span>{locale === "es" ? "Tres oficinas. Una misma forma de acompañar cada travesía." : "Three offices. One shared commitment to every voyage."}</span></div></section></PageShell>;
+  return <PageShell locale={locale} currentHref={locale === "es" ? "/localizaciones" : "/en/locations"} alternateHref={locale === "es" ? "/en/locations" : "/localizaciones"}><PageHero locale={locale} {...text} /><section className="content-section"><div className="locations-grid">{locations.map((location) => <article className="location-card" key={location.nameEs}><h3>{locale === "es" ? location.nameEs : location.nameEn}</h3><address>{location.address.map((line) => <span key={line}>{line}<br /></span>)}</address><a href={`tel:${location.phone.replaceAll(" ", "")}`}>{location.phone}</a><a href={`mailto:${location.email}`}>{location.email}</a><a href={location.map} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir ubicación" : "Open location"} →</a></article>)}</div><div className="location-map"><span>{locale === "es" ? "Tres oficinas. Una misma forma de acompañar cada travesía." : "Three offices. One shared commitment to every voyage."}</span></div><div className="locations-home-action"><Link className="lime-button" href={locale === "es" ? "/" : "/en"}>{locale === "es" ? "VOLVER A INICIO" : "BACK TO HOME"}</Link></div></section></PageShell>;
 }
 
 export function SimpleContentPage({ locale, title, intro, currentHref, alternateHref, heading, paragraphs }: { locale: Locale; title: string; intro: string; currentHref: string; alternateHref: string; heading: string; paragraphs?: string[] }) {
@@ -201,4 +202,22 @@ export function SimpleContentPage({ locale, title, intro, currentHref, alternate
     ? ["Construimos relaciones de largo plazo con armadores, tripulaciones y socios técnicos. Nuestro trabajo combina experiencia marítima, comunicación directa y una cultura de mejora continua.", "Esta primera versión organiza el contenido para que cada servicio, persona y ubicación tenga una ruta clara y una experiencia coherente en cualquier dispositivo."]
     : ["We build long-term relationships with shipowners, crews and technical partners. Our work combines maritime experience, direct communication and a culture of continuous improvement.", "This first version structures the content so every service, person and location has a clear route and a consistent experience on every device."];
   return <PageShell locale={locale} currentHref={currentHref} alternateHref={alternateHref}><PageHero locale={locale} title={title} intro={intro} /><section className="content-section"><h2>{heading}</h2>{(paragraphs ?? defaultParagraphs).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section></PageShell>;
+}
+
+export function LegalDocumentPage({ locale, document, currentHref, alternateHref }: { locale: Locale; document: LegalDocument; currentHref: string; alternateHref: string }) {
+  return <PageShell locale={locale} currentHref={currentHref} alternateHref={alternateHref}>
+    <PageHero locale={locale} title={document.title} intro={document.intro} />
+    <section className="content-section legal-document">
+      <p className="legal-updated">{document.updated}</p>
+      {document.sections.map((section) => <section className="legal-section" key={section.title}>
+        <h2>{section.title}</h2>
+        {section.paragraphs?.map((paragraph, index) => <p key={`${section.title}-paragraph-${index}`}>{paragraph}</p>)}
+        {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+        {section.numbered && <ol>{section.numbered.map((item) => <li key={item}>{item}</li>)}</ol>}
+        {section.items && <div className="legal-subsections">{section.items.map((item) => <div className="legal-subsection" key={item.title}><h3>{item.title}</h3><p>{item.body}</p></div>)}</div>}
+      </section>)}
+      <div className="legal-closing">{document.closing.map((line) => <p key={line}>{line}</p>)}</div>
+      <Link className="lime-button legal-home-button" href={locale === "es" ? "/" : "/en"}>{locale === "es" ? "VOLVER A INICIO" : "BACK TO HOME"}</Link>
+    </section>
+  </PageShell>;
 }

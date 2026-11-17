@@ -7,6 +7,10 @@ export type Service = {
   icon: string;
   iconSrc?: string;
   image: string;
+  /** Optional image used by the home service modal; cards keep `image`. */
+  modalImage?: string;
+  /** Image used on the full service detail page. */
+  detailImage?: string;
   es: { title: string; summary: string; features: string[]; sectionTitle?: string; detailHeading?: string; detailParagraphs?: string[]; detailTagline?: string };
   en: { title: string; summary: string; features: string[]; sectionTitle?: string; detailHeading?: string; detailParagraphs?: string[]; detailTagline?: string };
 };
@@ -19,6 +23,7 @@ export const services: Service[] = [
     icon: "⚙",
     iconSrc: "/assets/drive/iconos-bmare-01-crop.png",
     image: "/assets/service-01.webp",
+    detailImage: "/assets/service-details/detail-02.jpg",
     es: { title: "Gestión técnica y mantenimiento", summary: "Anticipamos incidencias y coordinamos el mantenimiento para mantener cada buque seguro, disponible y eficiente.", features: ["Planificación del mantenimiento", "Supervisión técnica a bordo", "Seguimiento de equipos", "Coordinación de reparaciones"] },
     en: { title: "Technical management and maintenance", summary: "We anticipate incidents and coordinate maintenance to keep every vessel safe, available and efficient.", features: ["Maintenance planning", "Onboard technical supervision", "Equipment monitoring", "Repair coordination"] },
   },
@@ -29,6 +34,8 @@ export const services: Service[] = [
     icon: "▤",
     iconSrc: "/assets/drive/iconos-bmare-05-crop.png",
     image: "/assets/service-02.webp",
+    modalImage: "/assets/service-details/quality-compliance-modal.jpg",
+    detailImage: "/assets/service-details/quality-compliance.jpg",
     es: { title: "Calidad y cumplimiento", summary: "Acompañamos a cada flota en la aplicación de estándares de seguridad, calidad y cumplimiento marítimo.", features: ["Sistemas de gestión", "Auditorías e inspecciones", "Seguridad operacional", "Seguimiento normativo"] },
     en: { title: "Quality and compliance", summary: "We support fleets in applying maritime safety, quality and compliance standards.", features: ["Management systems", "Audits and inspections", "Operational safety", "Regulatory monitoring"] },
   },
@@ -39,6 +46,8 @@ export const services: Service[] = [
     icon: "⚓",
     iconSrc: "/assets/drive/iconos-bmare-06-crop.png",
     image: "/assets/service-03.webp",
+    modalImage: "/assets/service-details/operations-modal.png",
+    detailImage: "/assets/service-details/detail-03.png",
     es: { title: "Operaciones", summary: "Coordinamos la operativa diaria para facilitar decisiones ágiles, continuidad de servicio y travesías eficientes.", features: ["Coordinación de viajes", "Seguimiento operativo", "Relación con puertos", "Respuesta ante incidencias"] },
     en: { title: "Operations", summary: "We coordinate daily operations to support timely decisions, service continuity and efficient voyages.", features: ["Voyage coordination", "Operational monitoring", "Port and agent liaison", "Incident response"] },
   },
@@ -49,6 +58,8 @@ export const services: Service[] = [
     icon: "⚒",
     iconSrc: "/assets/drive/iconos-bmare-07-crop.png",
     image: "/assets/service-04.webp",
+    modalImage: "/assets/service-details/drydock-modal.jpeg",
+    detailImage: "/assets/service-details/drydock-detail.jpg",
     es: { title: "Gestión de varadas", summary: "Planificamos y supervisamos las intervenciones en astillero para controlar plazos, calidad y costes.", features: ["Planificación de varadas", "Coordinación con astilleros", "Supervisión de trabajos", "Control de presupuesto"] },
     en: { title: "Drydock management", summary: "We plan and supervise shipyard interventions to control schedules, quality and costs.", features: ["Drydock planning", "Shipyard coordination", "Work supervision", "Time and budget control"] },
   },
@@ -59,6 +70,8 @@ export const services: Service[] = [
     icon: "▣",
     iconSrc: "/assets/drive/iconos-bmare-02-crop.png",
     image: "/assets/service-05.webp",
+    modalImage: "/assets/service-details/procurement-modal.jpg",
+    detailImage: "/assets/service-details/procurement-detail.jpg",
     es: { title: "Compras y aprovisionamiento", summary: "Gestionamos suministros, proveedores y logística para que cada buque cuente con lo que necesita.", features: ["Compras técnicas", "Gestión de proveedores", "Aprovisionamiento", "Coordinación logística"] },
     en: { title: "Procurement and supply", summary: "We manage supplies, vendors and logistics so every vessel has what it needs, when it needs it.", features: ["Technical purchasing", "Vendor management", "Vessel supply", "Logistics coordination"] },
   },
@@ -69,6 +82,7 @@ export const services: Service[] = [
     icon: "⬡",
     iconSrc: "/assets/drive/iconos-bmare-08-crop.png",
     image: "/assets/service-06.webp",
+    detailImage: "/assets/service-details/cybersecurity-detail.png",
     es: { title: "Ciberseguridad", summary: "Apoyamos la protección de los sistemas, los datos y los procesos digitales esenciales para la operación marítima.", features: ["Identificación de riesgos", "Protección de información", "Procedimientos de seguridad", "Concienciación de equipos"] },
     en: { title: "Cybersecurity", summary: "We support the protection of systems, data and digital processes essential to maritime operations.", features: ["Digital risk identification", "Information protection", "Security procedures", "Crew awareness"] },
   },
@@ -78,6 +92,8 @@ export const services: Service[] = [
     enSlug: "crew-management",
     icon: "♙",
     image: "/assets/service-07.webp",
+    modalImage: "/assets/service-details/crew-modal.jpg",
+    detailImage: "/assets/service-07.webp",
     es: { title: "Gestión de tripulaciones", summary: "Coordinamos los recursos humanos embarcados para favorecer la seguridad y el buen funcionamiento a bordo.", features: ["Selección y coordinación", "Documentación y certificaciones", "Incorporaciones y relevos", "Apoyo a la tripulación"] },
     en: { title: "Crew management", summary: "We coordinate onboard personnel to support safety, preparedness and efficient operations.", features: ["Selection and coordination", "Documents and certifications", "Joining and rotations", "Crew support"] },
   },
@@ -88,6 +104,8 @@ export const services: Service[] = [
     icon: "▥",
     iconSrc: "/assets/drive/iconos-bmare-04-crop.png",
     image: "/assets/service-08.webp",
+    modalImage: "/assets/service-details/finance-modal.jpg",
+    detailImage: "/assets/service-details/finance-detail.jpg",
     es: { title: "Finanzas y presupuestos", summary: "Ofrecemos control económico y apoyo en la gestión de riesgos para proteger la operación y los activos marítimos.", features: ["Presupuestos OPEX y CAPEX", "Informes de costes", "Análisis económico", "Seguros marítimos"] },
     en: { title: "Finance and budgeting", summary: "We provide financial oversight and risk management support to protect maritime operations and assets.", features: ["OPEX and CAPEX budgets", "Cost reporting", "Financial analysis", "Marine insurance"] },
   },
@@ -98,6 +116,7 @@ export const services: Service[] = [
     icon: "⌂",
     iconSrc: "/assets/drive/iconos-bmare-17-crop.png",
     image: "/assets/service-09.webp",
+    detailImage: "/assets/service-details/detail-09.jpg",
     es: { title: "Nuevas construcciones", summary: "Acompañamos los proyectos de nueva construcción con supervisión técnica y control de hitos.", features: ["Asistencia técnica", "Seguimiento en astillero", "Control de calidad", "Pruebas y entrega"] },
     en: { title: "Newbuildings", summary: "We support newbuilding projects with technical supervision, quality monitoring and milestone control.", features: ["Technical assistance", "Shipyard monitoring", "Quality control", "Trials and delivery"] },
   },
@@ -107,6 +126,7 @@ export const services: Service[] = [
     enSlug: "sustainability",
     icon: "❧",
     image: "/assets/service-10.webp",
+    detailImage: "/assets/service-details/sustainability-detail.jpeg",
     es: { title: "Sostenibilidad", summary: "Ayudamos a las flotas a mejorar su desempeño ambiental y avanzar hacia operaciones más responsables.", features: ["Cumplimiento ambiental", "Emisiones y eficiencia", "Descarbonización", "Gestión ambiental"] },
     en: { title: "Sustainability", summary: "We help fleets improve environmental performance, manage emissions and advance more responsible operations.", features: ["Environmental compliance", "Emissions and efficiency", "Decarbonisation", "Environmental systems"] },
   },
@@ -117,6 +137,8 @@ export const services: Service[] = [
     icon: "▣",
     iconSrc: "/assets/drive/iconos-bmare-13-crop.png",
     image: "/assets/service-11.webp",
+    modalImage: "/assets/service-details/insurance-modal.jpg",
+    detailImage: "/assets/service-details/detail-11.jpg",
     es: {
       title: "Seguros marítimos y gestión de riesgos",
       summary: "Protegemos tus buques, personas y operaciones mediante asesoramiento experto en seguros y gestión de riesgos.",

@@ -1,4 +1,5 @@
-import { SimpleContentPage } from "@/components/site";
+import { LegalDocumentPage } from "@/components/site";
+import { legalDocuments } from "@/lib/legal-content";
 
 export const metadata = {
   title: "Aviso legal | BMARE",
@@ -7,14 +8,11 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <SimpleContentPage
+    <LegalDocumentPage
       locale="es"
       currentHref="/aviso-legal"
       alternateHref="/en/legal-advice"
-      title="Aviso legal"
-      intro="Información legal y condiciones de uso del sitio web de BMARE."
-      heading="Contenido legal en revisión"
-      paragraphs={["El aviso legal oficial de BMARE se incorporará en esta sección después de validar los datos societarios, la titularidad del sitio y las condiciones de uso aplicables.", "Esta página queda preparada como punto de publicación para la versión legal definitiva. No debe considerarse todavía el texto legal final."]}
+      document={legalDocuments.legalNotice.es}
     />
   );
 }
