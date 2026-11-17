@@ -54,7 +54,10 @@ export function Header({ locale, currentHref, alternateHref, autoHide = true }: 
   const [open, setOpen] = useState(false);
   const [autoHidden, setAutoHidden] = useState(false);
   useEffect(() => {
-    if (!autoHide) return;
+    if (!autoHide || !window.matchMedia("(min-width: 1181px)").matches) {
+      setAutoHidden(false);
+      return;
+    }
     const timer = window.setTimeout(() => setAutoHidden(true), 2000);
     return () => window.clearTimeout(timer);
   }, [autoHide]);

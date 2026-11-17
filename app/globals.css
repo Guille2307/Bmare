@@ -400,8 +400,16 @@ img { max-width: 100%; display: block; }
   .trust-item + .trust-item { padding-left: 0; border-left: 0; }
   .trust-actions { grid-column: 1 / -1; justify-self: center; width: min(100%, 280px); margin-top: 0.25rem; }
   .cards-grid { grid-template-columns: 1fr; }
-  .page-hero { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .page-hero { padding-top: calc(3.5rem + 70px); padding-bottom: 3.5rem; }
   .content-section { padding-top: 3rem; padding-bottom: 3rem; }
+}
+@media (max-width: 1180px) {
+  /* Keep the compact mobile/tablet header pinned and visible. */
+  .site-header.is-auto-hidden,
+  .site-header.is-auto-hidden:hover,
+  .site-header.is-auto-hidden:focus-within {
+    transform: translateY(0);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
