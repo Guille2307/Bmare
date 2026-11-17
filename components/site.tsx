@@ -50,14 +50,14 @@ function ServiceGlyph({ service }: { service: Service }) {
   return <span>{service.icon}</span>;
 }
 
-export function Header({ locale, currentHref, alternateHref, autoHideOnHome = false }: { locale: Locale; currentHref: string; alternateHref: string; autoHideOnHome?: boolean }) {
+export function Header({ locale, currentHref, alternateHref, autoHide = true }: { locale: Locale; currentHref: string; alternateHref: string; autoHide?: boolean }) {
   const [open, setOpen] = useState(false);
   const [autoHidden, setAutoHidden] = useState(false);
   useEffect(() => {
-    if (!autoHideOnHome) return;
+    if (!autoHide) return;
     const timer = window.setTimeout(() => setAutoHidden(true), 2000);
     return () => window.clearTimeout(timer);
-  }, [autoHideOnHome]);
+  }, [autoHide]);
   return (
     <header className={`site-header${autoHidden ? " is-auto-hidden" : ""}`}>
       <Link className="brand" href={locale === "es" ? "/" : "/en"} aria-label={locale === "es" ? "Inicio de BMARE" : "BMARE home"}>
@@ -81,8 +81,8 @@ export function Footer({ locale }: { locale: Locale }) {
   return <footer className="footer"><div className="footer-inner"><span>{locale === "es" ? "BMARE · GESTIÓN NAVAL © 2026" : "BMARE · SHIP MANAGEMENT © 2026"}</span><span><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "Contacto" : "Locations"}</Link> · <Link href={locale === "es" ? "/politica-de-privacidad" : "/en/privacy-policy"}>{locale === "es" ? "Privacidad" : "Privacy"}</Link> · <Link href={locale === "es" ? "/aviso-legal" : "/en/legal-advice"}>{locale === "es" ? "Aviso legal" : "Legal notice"}</Link></span></div></footer>;
 }
 
-function PageShell({ locale, currentHref, alternateHref, autoHideHeader = false, children }: { locale: Locale; currentHref?: string; alternateHref: string; autoHideHeader?: boolean; children: React.ReactNode }) {
-  return <><Link href="#main" className="skip-link">{locale === "es" ? "Saltar al contenido" : "Skip to content"}</Link><Header locale={locale} currentHref={currentHref ?? (locale === "es" ? "/" : "/en")} alternateHref={alternateHref} autoHideOnHome={autoHideHeader} /><main id="main" lang={locale}>{children}</main><Footer locale={locale} /></>;
+function PageShell({ locale, currentHref, alternateHref, autoHideHeader = true, children }: { locale: Locale; currentHref?: string; alternateHref: string; autoHideHeader?: boolean; children: React.ReactNode }) {
+  return <><Link href="#main" className="skip-link">{locale === "es" ? "Saltar al contenido" : "Skip to content"}</Link><Header locale={locale} currentHref={currentHref ?? (locale === "es" ? "/" : "/en")} alternateHref={alternateHref} autoHide={autoHideHeader} /><main id="main" lang={locale}>{children}</main><Footer locale={locale} /></>;
 }
 
 function ServicePanel({ locale, service, onClose }: { locale: Locale; service: Service; onClose: () => void }) {
@@ -181,7 +181,7 @@ function PageHero({ locale, title, intro }: { locale: Locale; title: string; int
 
 export function ServicesPage({ locale }: { locale: Locale }) {
   const text = locale === "es" ? { title: "Servicios marítimos integrales", intro: "Coordinamos cada dimensión de la gestión de buques para que tu flota avance con seguridad, eficiencia y visión de futuro." } : { title: "Integrated maritime services", intro: "We coordinate every dimension of vessel management so your fleet moves with safety, efficiency and a clear view of the future." };
-  return <PageShell locale={locale} currentHref={locale === "es" ? "/servicios" : "/en/services"} alternateHref={locale === "es" ? "/en/services" : "/servicios"}><PageHero locale={locale} {...text} /><section className="content-section"><h2>{locale === "es" ? "Un socio para cada travesía" : "A partner for every voyage"}</h2><p>{locale === "es" ? "Explora nuestras áreas de trabajo y descubre cómo conectamos criterio técnico, coordinación operativa y control económico." : "Explore our areas of work and discover how we connect technical judgement, operational coordination and financial control."}</p><div className="cards-grid">{services.map((service) => <article className="service-card" key={service.key}><img src={service.image} alt="" /><div className="card-body"><h3>{service[locale].title}</h3><p>{service[locale].summary}</p><Link href={hrefFor(locale, service)}>{locale === "es" ? "VER SERVICIO" : "VIEW SERVICE"} →</Link></div></article>)}</div></section></PageShell>;
+  return <PageShell locale={locale} currentHref={locale === "es" ? "/servicios" : "/en/services"} alternateHref={locale === "es" ? "/en/services" : "/servicios"}><PageHero locale={locale} {...text} /><section className="content-section"><h2>{locale === "es" ? "Un socio para cada travesía" : "A partner for every voyage"}</h2><p>{locale === "es" ? "Explora nuestras áreas de trabajo y descubre cómo conectamos criterio técnico, coordinación operativa y control económico." : "Explore our areas of work and discover how we connect technical judgement, operational coordination and financial control."}</p><div className="cards-grid">{services.map((service) => <article className="service-card" key={service.key}><img src={service.modalImage ?? service.image} alt="" /><div className="card-body"><h3>{service[locale].title}</h3><p>{service[locale].summary}</p><Link href={hrefFor(locale, service)}>{locale === "es" ? "VER SERVICIO" : "VIEW SERVICE"} →</Link></div></article>)}</div></section></PageShell>;
 }
 
 export function ServiceDetailPage({ locale, service }: { locale: Locale; service: Service }) {
