@@ -90,13 +90,18 @@ function PageShell({ locale, currentHref, alternateHref, autoHideHeader = true, 
 
 function ServicePanel({ locale, service, onClose }: { locale: Locale; service: Service; onClose: () => void }) {
   const text = service[locale];
+  const modalSubtitle = service.modalSubtitle?.[locale] ?? homeServiceDescriptions[locale][service.key];
+  const modalLead = service.modalLead?.[locale] ?? (locale === "es" ? "MAXIMIZAMOS LA DISPONIBILIDAD Y EL RENDIMIENTO DE SU FLOTA." : "WE MAXIMISE YOUR FLEET'S AVAILABILITY AND PERFORMANCE.");
+  const modalDescription = service.modalDescription?.[locale] ?? text.summary;
+  const modalFeatures = service.modalFeatures?.[locale];
   return <aside className="service-panel" aria-live="polite">
     <button className="panel-close" type="button" onClick={onClose} aria-label={copy[locale].close}>×</button>
     <div className="panel-heading"><span className="panel-icon" aria-hidden="true">{service.iconSrc ? <img src={service.iconSrc} alt="" /> : service.icon}</span><span className="panel-kicker">{text.title}</span></div>
-    <h2>{locale === "es" && service.key === "technical" ? <>Gestión técnica<br />y mantenimiento</> : text.title}</h2>
-    <p className="panel-service-intro">{homeServiceDescriptions[locale][service.key]}</p>
-    <p className="panel-lead">{locale === "es" ? "MAXIMIZAMOS LA DISPONIBILIDAD Y EL RENDIMIENTO DE SU FLOTA." : "WE MAXIMISE YOUR FLEET'S AVAILABILITY AND PERFORMANCE."}</p>
-    <p>{text.summary}</p>
+    <h2>{service.modalHeading?.[locale] ?? (locale === "es" && service.key === "technical" ? <>Gestión técnica<br />y mantenimiento</> : text.title)}</h2>
+    <p className="panel-service-intro">{modalSubtitle}</p>
+    <p className="panel-lead">{modalLead}</p>
+    <p>{modalDescription}</p>
+    {modalFeatures && <><h3 className="panel-section-title">{service.modalAreasTitle?.[locale] ?? (locale === "es" ? "Áreas de especialización" : "Areas of expertise")}</h3><ul className="panel-feature-list">{modalFeatures.map((feature) => <li key={feature}>{feature}</li>)}</ul></>}
     <img src={service.modalImage ?? service.image} alt="" />
     <div className="panel-actions"><Link className="lime-button" href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "HABLA CON NUESTRO EQUIPO" : "TALK TO OUR TEAM"} <span aria-hidden="true">→</span></Link><Link className="secondary-button" href={hrefFor(locale, service)}>{locale === "es" ? "MÁS INFORMACIÓN" : "MORE INFORMATION"}</Link></div>
   </aside>;
@@ -133,12 +138,12 @@ export function HomePage({ locale }: { locale: Locale }) {
     paulaRole: "CEO",
     paulaQuote: "Conectamos experiencia, personas y soluciones para que tu flota avance con seguridad.",
     dirkRole: "Director General",
-    dirkQuote: "Criterio técnico y experiencia operativa para anticipar y resolver antes de la urgencia.",
+    dirkQuote: "Criterio técnico y experiencia operativa para anticipar desafíos y resolver incidencias antes de que se conviertan en urgencias.",
   } : {
     paulaRole: "CEO",
     paulaQuote: "We connect experience, people and solutions so your fleet can move forward safely.",
     dirkRole: "Managing Director",
-    dirkQuote: "Technical judgement and operational experience to anticipate and solve issues before they become urgent.",
+    dirkQuote: "Technical judgement and operational experience to anticipate challenges and resolve issues before they become urgent.",
   };
 
   return <PageShell locale={locale} currentHref={locale === "es" ? "/" : "/en"} alternateHref={locale === "es" ? "/en" : "/"} autoHideHeader>
@@ -192,7 +197,10 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
   const sectionTitle = text.sectionTitle ?? (locale === "es" ? "Ámbitos de trabajo" : "Areas of work");
   const detailHeading = text.detailHeading ?? (locale === "es" ? "Criterio técnico para avanzar" : "Technical judgement to move forward");
   const detailParagraphs = text.detailParagraphs ?? [locale === "es" ? "Integramos información técnica y operativa para facilitar decisiones oportunas, proteger tus activos y acompañar cada etapa de la travesía." : "We connect technical and operational information to support timely decisions, protect your assets and guide every stage of the voyage."];
-  return <PageShell locale={locale} currentHref={hrefFor(locale, service)} alternateHref={locale === "es" ? `/en/services/${service.enSlug}` : `/servicios/${service.esSlug}`}><PageHero locale={locale} title={text.title} intro={text.summary} /><section className="content-section"><div className="cards-grid"><article className="service-card"><img src={service.detailImage ?? service.image} alt="" /><div className="card-body"><h3>{sectionTitle}</h3><ul className="feature-list">{text.features.map((feature) => <li key={feature}>{feature}</li>)}</ul><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "HABLEMOS DE TU FLOTA" : "TALK TO OUR TEAM"} →</Link></div></article><article><h2>{detailHeading}</h2>{detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{text.detailTagline && <p className="service-detail-tagline">{text.detailTagline}</p>}<Link className="lime-button service-home-button" href={locale === "es" ? "/" : "/en"}>{locale === "es" ? "VOLVER A INICIO" : "BACK TO HOME"}</Link></article></div></section></PageShell>;
+  const detailSections = service.detailSections?.[locale];
+  const detailClosing = service.detailClosing?.[locale];
+  const detailLead = service.detailLead?.[locale];
+  return <PageShell locale={locale} currentHref={hrefFor(locale, service)} alternateHref={locale === "es" ? `/en/services/${service.enSlug}` : `/servicios/${service.esSlug}`}><PageHero locale={locale} title={text.title} intro={text.summary} /><section className="content-section"><div className="cards-grid"><article className="service-card"><img src={service.detailImage ?? service.image} alt="" /><div className="card-body"><h3>{sectionTitle}</h3><ul className="feature-list">{text.features.map((feature) => <li key={feature}>{feature}</li>)}</ul><Link href={locale === "es" ? "/localizaciones" : "/en/locations"}>{locale === "es" ? "HABLEMOS DE TU FLOTA" : "TALK TO OUR TEAM"} →</Link></div></article><article className="service-detail-copy"><h2>{detailHeading}</h2>{detailLead && <p className="service-detail-lead">{detailLead}</p>}{detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{detailSections?.map((section) => <section className="service-detail-section" key={section.title}><h3>{section.title}</h3>{section.body?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{section.items && section.items.length > 0 && <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>}</section>)}{detailClosing && <section className="service-detail-closing"><h3>{detailClosing.heading}</h3>{detailClosing.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{detailClosing.cta && <Link className="lime-button" href={locale === "es" ? "/localizaciones" : "/en/locations"}>{detailClosing.cta} <span aria-hidden="true">→</span></Link>}</section>}{text.detailTagline && <p className="service-detail-tagline">{text.detailTagline}</p>}<Link className="lime-button service-home-button" href={locale === "es" ? "/" : "/en"}>{locale === "es" ? "VOLVER A INICIO" : "BACK TO HOME"}</Link></article></div></section></PageShell>;
 }
 
 export function LocationsPage({ locale }: { locale: Locale }) {

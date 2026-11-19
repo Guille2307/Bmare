@@ -1,5 +1,17 @@
 export type Locale = "es" | "en";
 
+export type ServiceSection = {
+  title: string;
+  body?: string[];
+  items?: string[];
+};
+
+export type ServiceClosing = {
+  heading: string;
+  paragraphs?: string[];
+  cta?: string;
+};
+
 export type Service = {
   key: string;
   esSlug: string;
@@ -11,8 +23,53 @@ export type Service = {
   modalImage?: string;
   /** Image used on the full service detail page. */
   detailImage?: string;
+  /** Optional copy used by the home popup. */
+  modalHeading?: Record<Locale, string>;
+  modalSubtitle?: Record<Locale, string>;
+  modalLead?: Record<Locale, string>;
+  modalDescription?: Record<Locale, string>;
+  modalAreasTitle?: Record<Locale, string>;
+  modalFeatures?: Record<Locale, string[]>;
+  /** Optional long-form content used by the full service detail page. */
+  detailLead?: Record<Locale, string>;
+  detailSections?: Record<Locale, ServiceSection[]>;
+  detailClosing?: Record<Locale, ServiceClosing>;
   es: { title: string; summary: string; features: string[]; sectionTitle?: string; detailHeading?: string; detailParagraphs?: string[]; detailTagline?: string };
   en: { title: string; summary: string; features: string[]; sectionTitle?: string; detailHeading?: string; detailParagraphs?: string[]; detailTagline?: string };
+};
+
+const technicalDetailSections: Record<Locale, ServiceSection[]> = {
+  es: [
+    { title: "NUESTROS SERVICIOS TÉCNICOS" },
+    { title: "Gestión y supervisión técnica", items: ["Supervisión técnica e inspecciones de buques", "Evaluaciones del estado de los equipos y seguimiento del rendimiento", "Seguimiento de deficiencias y asistencia técnica"] },
+    { title: "Planificación y optimización del mantenimiento", items: ["Supervisión del sistema de mantenimiento preventivo planificado (PMS)", "Programación y priorización de tareas de mantenimiento", "Mantenimiento preventivo y basado en el estado de los equipos"] },
+    { title: "Fiabilidad de maquinaria y equipos", items: ["Monitorización de maquinaria y equipos críticos", "Diagnóstico técnico e investigación de averías", "Análisis de causas raíz y acciones correctivas"] },
+    { title: "Reparaciones, revisiones generales y proyectos técnicos", items: ["Planificación y coordinación de reparaciones", "Elaboración de especificaciones técnicas y evaluación de presupuestos", "Sustitución, modernización y actualización de equipos"] },
+    { title: "Gestión de varadas e inspecciones especiales", items: ["Preparación de varadas y especificaciones de reparación", "Coordinación con astilleros y subcontratistas", "Seguimiento del avance de los trabajos, la calidad y los costes"] },
+    { title: "Cumplimiento de requisitos de clase, bandera y normativa", items: ["Planificación de inspecciones de clase y reglamentarias", "Seguimiento de certificaciones y recomendaciones", "Apoyo al cumplimiento de la normativa técnica"] },
+    { title: "Compras técnicas y repuestos", items: ["Especificaciones técnicas e identificación de repuestos", "Coordinación con proveedores y fabricantes", "Evaluación de ofertas y seguimiento de entregas"] },
+    { title: "Presupuestos técnicos y rendimiento", items: ["Elaboración de presupuestos técnicos anuales y control del gasto", "Seguimiento de costes de mantenimiento y reparación", "Optimización del ciclo de vida de los equipos y del rendimiento energético"] },
+    { title: "NUESTRO ENFOQUE", body: ["ANTICIPAR – PLANIFICAR – COORDINAR – MEJORAR.", "Identificamos los riesgos técnicos de forma temprana, establecemos prioridades de mantenimiento y coordinamos soluciones eficaces para mejorar la fiabilidad de los buques, la eficiencia operativa y el control de costes."] },
+    { title: "EL VALOR QUE APORTAMOS (OPCIONAL)", items: ["Mayor disponibilidad y fiabilidad de los buques", "Menor riesgo de averías imprevistas", "Mejor planificación del mantenimiento y control de costes", "Mayor vida útil de los equipos", "Mejor supervisión técnica y toma de decisiones fundamentadas"] },
+  ],
+  en: [
+    { title: "OUR TECHNICAL SERVICES" },
+    { title: "Technical Management & Supervision", items: ["Technical oversight and vessel inspections", "Condition assessments and performance monitoring", "Defect follow-up and technical support"] },
+    { title: "Maintenance Planning & Optimisation", items: ["Planned Preventive Maintenance (PMS) oversight", "Maintenance scheduling and prioritisation", "Preventive and condition-based maintenance"] },
+    { title: "Machinery & Equipment Reliability", items: ["Critical machinery and equipment monitoring", "Technical troubleshooting and defect investigation", "Root-cause analysis and corrective actions"] },
+    { title: "Repairs, Overhauls & Technical Projects", items: ["Repair planning and coordination", "Technical specifications and quotation evaluations", "Equipment replacements, upgrades and retrofits"] },
+    { title: "Drydock & Special Survey Management", items: ["Drydock preparation and repair specifications", "Shipyard and subcontractor coordination", "Work progress, quality and cost monitoring"] },
+    { title: "Class, Flag & Statutory Compliance", items: ["Class and statutory survey planning", "Certification and recommendation follow-up", "Technical regulatory compliance support"] },
+    { title: "Technical Procurement & Spare Parts", items: ["Technical specifications and spare parts identification", "Supplier and manufacturer coordination", "Quotation evaluation and delivery follow-up"] },
+    { title: "Technical Budgeting & Performance", items: ["Annual technical budgets and expenditure control", "Maintenance and repair cost monitoring", "Equipment lifecycle and energy performance optimisation"] },
+    { title: "OUR APPROACH", body: ["ANTICIPATE – PLAN – COORDINATE – IMPROVE.", "We identify technical risks early, establish maintenance priorities and coordinate effective solutions to improve vessel reliability, operational efficiency and cost control."] },
+    { title: "THE VALUE WE BRING (OPTIONAL)", items: ["Increased vessel availability and reliability", "Reduced risk of unexpected breakdowns", "Improved maintenance planning and cost control", "Extended equipment service life", "Better technical oversight and informed decisions"] },
+  ],
+};
+
+const technicalDetailClosing: Record<Locale, ServiceClosing> = {
+  es: { heading: "CRITERIO TÉCNICO PARA SEGUIR AVANZANDO", paragraphs: ["Combinamos conocimientos técnicos con experiencia operativa práctica para ayudarte a anticipar desafíos, proteger tus activos y mantener tu flota al máximo rendimiento.", "HABLEMOS DE TUS NECESIDADES DE GESTIÓN TÉCNICA."], cta: "HABLA CON NUESTRO EQUIPO" },
+  en: { heading: "TECHNICAL JUDGEMENT TO MOVE FORWARD", paragraphs: ["We combine technical expertise with practical operational experience to help you anticipate challenges, protect your assets and keep your fleet performing at its best.", "LET'S DISCUSS YOUR TECHNICAL MANAGEMENT REQUIREMENTS."], cta: "TALK TO OUR TEAM" },
 };
 
 export const services: Service[] = [
@@ -23,10 +80,25 @@ export const services: Service[] = [
     icon: "⚙",
     iconSrc: "/assets/drive/iconos-bmare-01-crop.png",
     image: "/assets/service-01.webp",
-    modalImage: "/assets/service-details/technical-modal.jpeg",
-    detailImage: "/assets/service-details/detail-02.jpg",
-    es: { title: "Gestión técnica y mantenimiento", summary: "Anticipamos incidencias y coordinamos el mantenimiento para mantener cada buque seguro, disponible y eficiente.", features: ["Planificación del mantenimiento", "Supervisión técnica a bordo", "Seguimiento de equipos", "Coordinación de reparaciones"] },
-    en: { title: "Technical management and maintenance", summary: "We anticipate incidents and coordinate maintenance to keep every vessel safe, available and efficient.", features: ["Maintenance planning", "Onboard technical supervision", "Equipment monitoring", "Repair coordination"] },
+    modalImage: "/assets/service-details/technical-management-modal.png",
+    detailImage: "/assets/service-details/technical-management-detail.png",
+    modalHeading: { es: "Gestión técnica", en: "Technical Management" },
+    modalSubtitle: { es: "Optimización del mantenimiento y supervisión de buques", en: "Maintenance Optimisation & Vessel Monitoring" },
+    modalLead: { es: "COMBINAMOS CRITERIO TÉCNICO Y EXPERIENCIA OPERATIVA PARA MAXIMIZAR LA DISPONIBILIDAD, LA FIABILIDAD Y EL RENDIMIENTO DE LOS BUQUES.", en: "WE COMBINE TECHNICAL JUDGEMENT AND OPERATIONAL EXPERIENCE TO MAXIMISE VESSEL AVAILABILITY, RELIABILITY AND PERFORMANCE." },
+    modalDescription: {
+      es: "Proporcionamos supervisión técnica proactiva y coordinación del mantenimiento para maximizar la fiabilidad, la disponibilidad y el rendimiento de los buques.",
+      en: "We provide proactive technical oversight and maintenance coordination to maximise vessel reliability, availability and performance.",
+    },
+    modalAreasTitle: { es: "Áreas de especialización", en: "Areas of expertise" },
+    modalFeatures: {
+      es: ["Supervisión técnica y seguimiento de buques", "Planificación y optimización del mantenimiento", "Fiabilidad de la maquinaria y reparaciones", "Coordinación de varadas e inspecciones especiales", "Cumplimiento de los requisitos de la sociedad de clasificación, el Estado de abanderamiento y la normativa aplicable", "Compras técnicas y control de costes"],
+      en: ["Technical supervision & vessel monitoring", "Maintenance planning & optimisation", "Machinery reliability & repairs", "Drydock & special survey coordination", "Class, flag & statutory compliance", "Technical procurement & cost control"],
+    },
+    detailLead: { es: "COMBINAMOS CRITERIO TÉCNICO Y EXPERIENCIA OPERATIVA PARA MAXIMIZAR LA DISPONIBILIDAD, LA FIABILIDAD Y EL RENDIMIENTO DE LOS BUQUES.", en: "WE COMBINE TECHNICAL JUDGEMENT AND OPERATIONAL EXPERIENCE TO MAXIMISE VESSEL AVAILABILITY, RELIABILITY AND PERFORMANCE." },
+    detailSections: technicalDetailSections,
+    detailClosing: technicalDetailClosing,
+    es: { title: "Gestión técnica y mantenimiento", summary: "Optimización del mantenimiento y supervisión de buques.", features: ["Supervisión técnica y seguimiento de buques", "Planificación y optimización del mantenimiento", "Fiabilidad de la maquinaria y reparaciones", "Coordinación de varadas e inspecciones especiales", "Cumplimiento de clase, bandera y normativa", "Compras técnicas y control de costes"], detailHeading: "Mantenemos tu flota segura, fiable y con el máximo rendimiento", detailParagraphs: ["BMARE ofrece apoyo en gestión técnica, supervisión del mantenimiento y asesoramiento técnico independiente. Mediante la planificación, la monitorización y la coordinación proactivas, ayudamos a los armadores a mantener sus buques seguros, fiables y eficientes, controlando los costes y protegiendo sus activos."] },
+    en: { title: "Technical management and maintenance", summary: "Maintenance optimisation and vessel monitoring.", features: ["Technical supervision & vessel monitoring", "Maintenance planning & optimisation", "Machinery reliability & repairs", "Drydock & special survey coordination", "Class, flag & statutory compliance", "Technical procurement & cost control"], detailHeading: "Keeping Your Fleet Safe, Reliable and Performing at Its Best", detailParagraphs: ["BMARE provides technical management support, maintenance oversight and independent technical guidance. Through proactive planning, monitoring and coordination, we help shipowners maintain safe, reliable and efficient vessels while controlling costs and protecting their assets."] },
   },
   {
     key: "quality",
