@@ -158,7 +158,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               const position = positions[service.key] ?? { x: "50%", y: "50%" };
               return <button key={service.key} className={`petal petal-${service.key}`} type="button" style={{ "--x": position.x, "--y": position.y } as CSSProperties} aria-expanded={active?.key === service.key} onClick={() => setActive(active?.key === service.key ? null : service)}>
                 <span className="petal-icon" aria-hidden="true"><ServiceGlyph service={service} /></span>
-                <span className="petal-label">{service[locale].title}</span>
+                <span className="petal-label">{service.key === "technical" ? <><span className="petal-label-line">{locale === "es" ? "Gestión técnica" : "Technical management"}</span><span className="petal-label-line">{locale === "es" ? "y mantenimiento" : "and maintenance"}</span></> : service[locale].title}</span>
               </button>;
             })}
             <div className="ship-core" aria-hidden="true" />

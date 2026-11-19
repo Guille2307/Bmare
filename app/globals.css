@@ -97,6 +97,8 @@ img { max-width: 100%; display: block; }
 .petal .petal-icon { display: grid; place-items: center; min-height: 2.55rem; color: var(--white); font-size: clamp(1.35rem, 2.3vw, 2rem); line-height: 1; }
 .petal .petal-icon img, .petal .petal-icon svg { width: clamp(2.45rem, 3.2vw, 3.25rem); height: clamp(2.45rem, 3.2vw, 3.25rem); object-fit: contain; }
 .petal .petal-label { max-width: 17ch; font-size: clamp(0.64rem, 0.8vw, 0.78rem); font-weight: 900; line-height: 1.08; }
+.petal-technical .petal-label { max-width: none; }
+.petal-technical .petal-label-line { display: block; white-space: nowrap; }
 .petal-marineInsurance { width: clamp(150px, 12vw, 190px); }
 .petal-marineInsurance .petal-label { max-width: 18ch; }
 .service-panel { position: relative; z-index: 20; grid-column: 3; grid-row: 1; align-self: center; width: 100%; max-width: 430px; max-height: calc(100svh - 2rem); overflow: auto; margin: 0 auto; padding: clamp(1.35rem, 2vw, 1.8rem); border: 1px solid rgba(22, 57, 71, 0.18); border-radius: 1.3rem; background: rgba(255, 255, 255, 0.98); color: var(--ink); box-shadow: var(--shadow); animation: service-panel-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both; }
